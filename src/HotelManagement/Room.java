@@ -19,7 +19,7 @@ public class Room{
     }
 
     public int returnOccupants(){
-        if (isOccupied) return occupants;
+        if (isOccupied && occupants > 0) return occupants;
         else return 0;
     }
 
@@ -40,13 +40,17 @@ public class Room{
     public double getRate(){
         return dailyRate;
     }
+    public String getFloor(){
+        return (number+"").substring(0,(number+"").length()-2);
+    }
     public String toString(){
         String result = "Room "+number+
+                        "\nFloor: "+getFloor()+
                         "\nType: "+this.getType()+
                         "\nCost per night: "+dailyRate+
                         "\ncapacity: "+capacity;
         if(isOccupied){
-            result += "Occupants: "+occupants;
+            result += "\nOccupants: "+occupants;
         }
 
         return result;

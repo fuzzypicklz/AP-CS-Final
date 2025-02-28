@@ -23,9 +23,7 @@ public class Suite extends Room {
         if(hasBalcony) return super.toString() + "\nBalcony: "+hasBalcony;
         return super.toString();
     }
-    public static void main(String[] args){
-        Suite s1 = new Suite(100, 10,false,true,2100.00);
-        System.out.println(s1.toString());
-        System.out.println(s1.type);
+    public String getType(){
+        return this.type;
     }
 }
