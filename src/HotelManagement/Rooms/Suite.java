@@ -1,4 +1,4 @@
-package HotelManagement;
+package HotelManagement.Rooms;
 
 public class Suite extends Room {
     private int capacity = 4;

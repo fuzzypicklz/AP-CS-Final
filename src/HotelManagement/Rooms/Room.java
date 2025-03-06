@@ -1,4 +1,4 @@
-package HotelManagement;
+package HotelManagement.Rooms;
 
 public class Room{
     private int capacity = 2;
@@ -42,6 +42,9 @@ public class Room{
     }
     public String getFloor(){
         return (number+"").substring(0,(number+"").length()-2);
+    }
+    public int getNumber(){
+        return number;
     }
     public String toString(){
         String result = "Room "+number+
