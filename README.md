@@ -1,1 +1,4 @@
 # AP-CS-Final
+Code is documented with comments
+
+DO NOT REDISTRIBUTE/COPY WITHOUT PERMISSION OR CREDIT

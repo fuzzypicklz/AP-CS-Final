@@ -1,0 +1,7 @@
+Employee ID: 4
+Name: Joe Shmoe
+Position: safety officer
+Wage: 16.99
+Hours Worked: 0.0
+Overtime Hours: 0.0
+Total pay: 0.0

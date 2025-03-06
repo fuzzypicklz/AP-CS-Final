@@ -8,6 +8,7 @@ import HotelManagement.Employees.Manager;
 import HotelManagement.Employees.Receptionist;
 
 import HotelManagement.Rooms.Room;
+import HotelManagement.Rooms.Suite;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +20,12 @@ public class EmployeeManagement {
         
         EmployeeDebug();
         employeesToCSV();
+
+        System.out.println(getEmployeesString());
         
+        for(Employee e : employeeList){
+            employeeSummary(e);
+        }
         /*
         employeesFromCSV();
         System.out.println(getEmployeesString());
@@ -38,12 +44,16 @@ public class EmployeeManagement {
         addEmployee("John", "Doe", "Intern");
         addEmployee("Jane", "Doe", "Manager");
         addEmployee("John", "Smith", "Housekeeping");
+        addEmployee("Joe", "Doe", "Intern");
+        addEmployee("Joe", "Shmoe", "Safety Officer");
 
-        Room r1 = new Room(200);
+        Room r1 = new Room(100);
+        Room r2 = new Room(200, 4, false, 135);
+        Room s1 = new Suite(202, 5, false,true,300);
         Housekeeping h = (Housekeeping) employeeList.get(2);
         h.addRoom(r1);
-
-        System.out.println(h.toString());
+        h.addRoom(r2);
+        h.addRoom(s1);
     }
     /*
      * Adds a generic Employee with no attributes besides name. Default position is an intern.
@@ -83,7 +93,6 @@ public class EmployeeManagement {
     public static void removeEmployee(Employee e){
         employeeList.remove(e);
     }
-
     /*
      * Sends all of the Employee.toString() values to a singular, formatted String.
      */
@@ -95,7 +104,6 @@ public class EmployeeManagement {
         }
         return s;
     }
-
     /*
      * Finds an Employee from arraylist<Employee> employeeList by ID and returns it as its respective position class.
      */
@@ -167,7 +175,7 @@ public class EmployeeManagement {
      */
     public static String employeeSummary(Employee employee){
         try{
-            File file = new File("data/"+employee.getID()+employee.getLname()+employee.getFname()+".txt");
+            File file = new File("data/"+employee.getID()+employee.getFname()+employee.getLname()+".txt");
             java.io.PrintWriter output = new java.io.PrintWriter(file);
             output.print(employee.toString());
             output.close();

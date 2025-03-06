@@ -16,7 +16,7 @@ public class Employee {
         
         
     }
-    public Employee(int id, String f, String l, String p){  // p.equals("Receptionist")
+    public Employee(int id, String f, String l, String p){
         this.ID = id;
         this.fName = f;
         this.lName = l;
@@ -65,7 +65,7 @@ public class Employee {
         return calculatePay();
     }
     /*
-     * Adds hours, adds overtime work, then calculates pay based on a 1.5x overtime bonus.
+     * Adds hours, adds overtime hours, then calculates pay based on a 1.5x overtime bonus.
      */
     public double calculatePay(double extraHours, double extraOvertime){
         hoursWorked += extraHours;
