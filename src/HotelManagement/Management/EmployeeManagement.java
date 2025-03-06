@@ -97,7 +97,7 @@ public class EmployeeManagement {
         }
         
         try{
-            File file = new File("employees.csv");
+            File file = new File("data/employees.csv");
             java.io.PrintWriter output = new java.io.PrintWriter(file);
             output.print(s);
             output.close();
@@ -110,7 +110,7 @@ public class EmployeeManagement {
 
     public static void employeesFromCSV(){
         try{
-            File file = new File("employees.csv");
+            File file = new File("data/employees.csv");
             Scanner input = new Scanner(file);
             input.nextLine();
             while(input.hasNext()){
@@ -135,7 +135,7 @@ public class EmployeeManagement {
     
     public static String employeeSummary(Employee employee){
         try{
-            File file = new File(employee.getID()+employee.getLname()+employee.getFname()+".txt");
+            File file = new File("data/"+employee.getID()+employee.getLname()+employee.getFname()+".txt");
             java.io.PrintWriter output = new java.io.PrintWriter(file);
             output.print(employee.toString());
             output.close();

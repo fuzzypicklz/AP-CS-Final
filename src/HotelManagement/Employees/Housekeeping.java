@@ -46,7 +46,7 @@ public class Housekeeping extends Employee{
             s += room.getNumber() + ",";
         }
         try{
-            File file = new File("rooms.csv");
+            File file = new File("/data"+getID()+getLname()+getFname()+"rooms.csv");
             java.io.PrintWriter output = new java.io.PrintWriter(file);
             output.print(s);
             output.close();
@@ -58,7 +58,7 @@ public class Housekeeping extends Employee{
     }
     public void roomsFromCSV(){
         try{
-            File file = new File("rooms.csv");
+            File file = new File("/data"+getID()+getLname()+getFname()+"rooms.csv");
             java.util.Scanner input = new java.util.Scanner(file);
             while(input.hasNext()){
                 String s = input.next();
