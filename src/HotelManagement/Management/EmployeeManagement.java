@@ -12,21 +12,25 @@ public class EmployeeManagement {
     public static ArrayList employeeList = new ArrayList<Employee>();
 
     public static void main(String[] args){
-        /*EmployeeDebug();
-        employeesToCSV();*/
+        /*
+        EmployeeDebug();
+        employeesToCSV();
+        */
 
         employeesFromCSV();
         System.out.println(getEmployeesString());
     }
     
     public static void EmployeeDebug(){
+        /*
         Employee e = new Employee(0, "John", "Doe");
         Employee e2 = new Employee(1, "Jane", "Doe", "Manager");
         Housekeeping h = new Housekeeping(2, "John", "Smith");
+        */
 
-        addEmployee(e);
-        addEmployee(e2);
-        addEmployee(h);
+        addEmployee("John", "Doe");
+        addEmployee("Jane", "Doe", "Manager");
+        addEmployee("John", "Smith", "Housekeeping");
     }
 
     public static void addIntern(String f, String l){
