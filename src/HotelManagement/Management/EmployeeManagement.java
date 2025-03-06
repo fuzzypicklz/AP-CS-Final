@@ -28,7 +28,7 @@ public class EmployeeManagement {
         Housekeeping h = new Housekeeping(2, "John", "Smith");
         */
 
-        addEmployee("John", "Doe");
+        addEmployee("John", "Doe", "Intern");
         addEmployee("Jane", "Doe", "Manager");
         addEmployee("John", "Smith", "Housekeeping");
     }
@@ -74,7 +74,7 @@ public class EmployeeManagement {
     }
 
     public static String getEmployeesString(){
-        String s = "";
+        String s = "\n";
         for(int i = 0; i < employeeList.size(); i++){
             Employee employee = (Employee) employeeList.get(i);
             s += employee.toString() + "\n\n";
