@@ -4,6 +4,9 @@ import java.util.Scanner;
 
 import HotelManagement.Employees.Employee;
 import HotelManagement.Employees.Housekeeping;
+import HotelManagement.Employees.Manager;
+
+import HotelManagement.Rooms.Room;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,13 +15,14 @@ public class EmployeeManagement {
     public static ArrayList employeeList = new ArrayList<Employee>();
 
     public static void main(String[] args){
-        /*
+        
         EmployeeDebug();
         employeesToCSV();
-        */
-
+        
+        /*
         employeesFromCSV();
         System.out.println(getEmployeesString());
+        */
     }
     
     public static void EmployeeDebug(){
@@ -31,6 +35,14 @@ public class EmployeeManagement {
         addEmployee("John", "Doe", "Intern");
         addEmployee("Jane", "Doe", "Manager");
         addEmployee("John", "Smith", "Housekeeping");
+
+        Room r1 = new Room(200);
+        
+        Housekeeping h = (Housekeeping) getEmployee(2);
+        
+        h.addRoom(r1);
+
+        System.out.println(h.toString());
     }
 
     public static void addIntern(String f, String l){
@@ -45,11 +57,10 @@ public class EmployeeManagement {
             addEmployee(e);
         } 
 
-        /*else if(p == "manager"){
+        else if(p == "manager"){
             Manager e = new Manager(employeeList.size(), f, l);
             addEmployee(e);
-        }*/
-        
+        }
         /*
         else if(p == "receptionist"){
             Receptionist e = new Receptionist(employeeList.size(), f, l);
@@ -86,7 +97,9 @@ public class EmployeeManagement {
         for (int i = 0; i < employeeList.size(); i++){
             Employee employee = (Employee) employeeList.get(i);
             if (employee.getID() == id){
-                return employee;
+                if(employee.getPosition().toLowerCase() == "housekeeping") return (Housekeeping) employeeList.get(i);
+                else if(employee.getPosition().toLowerCase() == "manager") return (Manager) employeeList.get(i);
+                else return (Employee) employeeList.get(i);
             }
         }
         System.out.println("Employee not found.");

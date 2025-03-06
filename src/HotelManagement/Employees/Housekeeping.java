@@ -72,4 +72,9 @@ public class Housekeeping extends Employee{
             e.printStackTrace();
         }
     }
+    public String toString(){
+        if (roomAssignment.size()>0) return super.toString() +
+               "\nAssigned rooms: "+getRoomsString();
+        else return super.toString();
+    }
 }
