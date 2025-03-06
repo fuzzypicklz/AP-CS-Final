@@ -29,7 +29,9 @@ public class Housekeeping extends Employee{
     public ArrayList getRooms(){
         return roomAssignment;
     }
-
+    /*
+     * Sends the assigned rooms to a formatted String.
+     */
     public String getRoomsString(){
         String s = "";
         for(int i = 0; i < roomAssignment.size(); i++){
@@ -38,7 +40,9 @@ public class Housekeeping extends Employee{
         }
         return s;
     }
-
+    /*
+     * Exports a CSV associated with the Employee of the list of rooms they have been assigned
+     */
     public void roomsToCSV(){
         String s = "";
         for(int i = 0; i < roomAssignment.size(); i++){
@@ -56,6 +60,9 @@ public class Housekeeping extends Employee{
             e.printStackTrace();
         }
     }
+    /*
+     * Imports a CSV associated with the Employee of the rooms they hav ebeen assigned.
+     */
     public void roomsFromCSV(){
         try{
             File file = new File("/data"+getID()+getLname()+getFname()+"rooms.csv");
@@ -72,6 +79,7 @@ public class Housekeeping extends Employee{
             e.printStackTrace();
         }
     }
+    
     public String toString(){
         if (roomAssignment.size()>0) return super.toString() +
                "\nAssigned rooms: "+getRoomsString();

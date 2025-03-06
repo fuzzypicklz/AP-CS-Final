@@ -5,6 +5,7 @@ import java.util.Scanner;
 import HotelManagement.Employees.Employee;
 import HotelManagement.Employees.Housekeeping;
 import HotelManagement.Employees.Manager;
+import HotelManagement.Employees.Receptionist;
 
 import HotelManagement.Rooms.Room;
 
@@ -12,7 +13,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class EmployeeManagement {
-    public static ArrayList employeeList = new ArrayList<Employee>();
+    public static ArrayList<Employee> employeeList = new ArrayList<Employee>();
 
     public static void main(String[] args){
         
@@ -24,7 +25,9 @@ public class EmployeeManagement {
         System.out.println(getEmployeesString());
         */
     }
-    
+    /*
+     * Method testing for Employee Management
+     */
     public static void EmployeeDebug(){
         /*
         Employee e = new Employee(0, "John", "Doe");
@@ -37,43 +40,40 @@ public class EmployeeManagement {
         addEmployee("John", "Smith", "Housekeeping");
 
         Room r1 = new Room(200);
-        
-        Housekeeping h = (Housekeeping) getEmployee(2);
-        
+        Housekeeping h = (Housekeeping) employeeList.get(2);
         h.addRoom(r1);
 
         System.out.println(h.toString());
     }
-
+    /*
+     * Adds a generic Employee with no attributes besides name. Default position is an intern.
+     */
     public static void addIntern(String f, String l){
         Employee e = new Employee(employeeList.size(), f, l);
         addEmployee(e);
     }
-
+    /*
+     * Adds an Employee with a position attribute. if the position is new, it adds a generic employee with that position.
+     */
     public static void addEmployee(String f, String l, String p){
         p = p.toLowerCase();
-        if (p == "housekeeping"){
+        if (p.equalsIgnoreCase("housekeeping")){
             Housekeeping e = new Housekeeping(employeeList.size(), f, l);
-            addEmployee(e);
+            employeeList.add(e);
         } 
 
-        else if(p == "manager"){
+        else if(p.equalsIgnoreCase("manager")){
             Manager e = new Manager(employeeList.size(), f, l);
-            addEmployee(e);
+            employeeList.add(e);
         }
-        /*
         else if(p == "receptionist"){
             Receptionist e = new Receptionist(employeeList.size(), f, l);
             addEmployee(e);
         }
-        */
-
         else {
             Employee e = new Employee(employeeList.size(), f, l, p);
-            addEmployee(e);
+            employeeList.add(e);
         }
-        Employee e = new Employee(employeeList.size(), f, l);
-        addEmployee(e);
     }
 
     public static void addEmployee(Employee e){
@@ -84,6 +84,9 @@ public class EmployeeManagement {
         employeeList.remove(e);
     }
 
+    /*
+     * Sends all of the Employee.toString() values to a singular, formatted String.
+     */
     public static String getEmployeesString(){
         String s = "\n";
         for(int i = 0; i < employeeList.size(); i++){
@@ -93,7 +96,10 @@ public class EmployeeManagement {
         return s;
     }
 
-    public static Employee getEmployee(int id){
+    /*
+     * Finds an Employee from arraylist<Employee> employeeList by ID and returns it as its respective position class.
+     */
+    public static Object getEmployee(int id){
         for (int i = 0; i < employeeList.size(); i++){
             Employee employee = (Employee) employeeList.get(i);
             if (employee.getID() == id){
@@ -105,7 +111,10 @@ public class EmployeeManagement {
         System.out.println("Employee not found.");
         return null;
     }
-
+    /*
+     * Exports All generic Employee data of Employees with employeeList NOT INCLUDING HOUSEKEEPING ROOM ASSIGNMENTS.
+     * Room assignments can be exported using another method within the Housekeeping class.
+     */
     public static void employeesToCSV(){
         String s = "ID,fName,lName,position\n";
         for(int i = 0; i < employeeList.size(); i++){
@@ -124,7 +133,10 @@ public class EmployeeManagement {
             e.printStackTrace();
         }
     }
-
+    /*
+     * APPENDS (does not replace) data from a correctly formatted CSV to the end of employeeList. DOES NOT IMPORT ROOM ASSIGNMENTS.
+     * Room assignments can be imported to individual Housekeeping class members using another method.
+     */
     public static void employeesFromCSV(){
         try{
             File file = new File("data/employees.csv");
@@ -137,8 +149,9 @@ public class EmployeeManagement {
                 String fName = lineBreak[1];
                 String lName = lineBreak[2];
                 String position = lineBreak[3];
-                Employee employee = new Employee(id, fName, lName, position);
-                employeeList.add(employee);
+                if (position.equalsIgnoreCase("housekeeping")) employeeList.add(new Housekeeping(id, fName, lName));
+                else if (position.equalsIgnoreCase("manager")) employeeList.add(new Manager(id, fName, lName)); 
+                else employeeList.add(new Employee(id, fName, lName, position));
             }
             System.out.println("Employees loaded from file.");
         } catch (IOException e){
@@ -149,7 +162,9 @@ public class EmployeeManagement {
             e.printStackTrace();
         }
     }
-    
+    /*
+     * Exports the Employee.toString() to a .txt file associated with the employee.
+     */
     public static String employeeSummary(Employee employee){
         try{
             File file = new File("data/"+employee.getID()+employee.getLname()+employee.getFname()+".txt");

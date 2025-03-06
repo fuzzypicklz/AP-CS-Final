@@ -23,25 +23,10 @@ public class Employee {
         this.position = p;
     }
 
-    public double calculatePay(){
-        return hoursWorked * wage;
-    }
-
     public int getID(){
         return ID;
     }
     
-    public double calculatePay(double extraHours){
-        hoursWorked += extraHours;
-        return hoursWorked * wage;
-    }
-
-    public double calculatePay(double extraHours, double extraOvertime){
-        hoursWorked += extraHours;
-        overtimeHours += extraOvertime;
-        return hoursWorked * wage + overtimeHours * wage * 1.5;
-    }
-
     public double getHoursWorked(){
         return hoursWorked + overtimeHours;
     }
@@ -50,17 +35,8 @@ public class Employee {
         return overtimeHours;
     }
 
-    public String getHoursWorkedString(){
-        return  "Standard hours: " + hoursWorked+
-                "Overtime Hours: " + overtimeHours;
-    }
-
     public String getPosition(){
         return this.position;
-    }
-
-    public void setWage(double w){
-        wage = w;
     }
 
     public String getFname(){
@@ -69,6 +45,36 @@ public class Employee {
     
     public String getLname(){
         return lName;
+    }
+
+    public String getHoursWorkedString(){
+        return  "Standard hours: " + hoursWorked+
+                "Overtime Hours: " + overtimeHours;
+    }
+    /*
+     * Calculates pay based on currently logged hours.
+     */
+    public double calculatePay(){
+        return hoursWorked * wage;
+    }
+    /*
+     * Adds hours, then calculates pay.
+     */
+    public double calculatePay(double extraHours){
+        hoursWorked += extraHours;
+        return calculatePay();
+    }
+    /*
+     * Adds hours, adds overtime work, then calculates pay based on a 1.5x overtime bonus.
+     */
+    public double calculatePay(double extraHours, double extraOvertime){
+        hoursWorked += extraHours;
+        overtimeHours += extraOvertime;
+        return calculatePay() + overtimeHours * wage * 1.5;
+    }
+
+    public void setWage(double w){
+        wage = w;
     }
 
     public String toString(){
