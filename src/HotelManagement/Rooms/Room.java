@@ -18,7 +18,7 @@ public class Room{
         this.number = num;
     }
 
-    public int returnOccupants(){
+    public int getOccupants(){
         if (isOccupied && occupants > 0) return occupants;
         else return 0;
     }
@@ -26,6 +26,23 @@ public class Room{
     public int getOccupancy(){
         return capacity;
     }
+    
+    public String getType(){
+        return this.type;
+    }
+
+    public double getRate(){
+        return dailyRate;
+    }
+    
+    public String getFloor(){
+        return (number+"").substring(0,(number+"").length()-2);
+    }
+
+    public int getNumber(){
+        return number;
+    }
+
     public boolean setOccupancy(int customers){
         if (!isOccupied && customers<=capacity) {
             isOccupied=true;
@@ -34,18 +51,7 @@ public class Room{
         }
         return false;
     }
-    public String getType(){
-        return this.type;
-    }
-    public double getRate(){
-        return dailyRate;
-    }
-    public String getFloor(){
-        return (number+"").substring(0,(number+"").length()-2);
-    }
-    public int getNumber(){
-        return number;
-    }
+
     public String toString(){
         String result = "Room "+number+
                         "\nFloor: "+getFloor()+
@@ -55,7 +61,6 @@ public class Room{
         if(isOccupied){
             result += "\nOccupants: "+occupants;
         }
-
         return result;
                 
     }

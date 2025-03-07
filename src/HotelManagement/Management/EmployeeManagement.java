@@ -20,11 +20,9 @@ public class EmployeeManagement {
         
         EmployeeDebug();
         employeesToCSV();
-
-        System.out.println(getEmployeesString());
         
         for(Employee e : employeeList){
-            employeeSummary(e);
+            System.out.println(employeeSummary(e)+"\n");
         }
         /*
         employeesFromCSV();
@@ -69,14 +67,13 @@ public class EmployeeManagement {
         p = p.toLowerCase();
         if (p.equalsIgnoreCase("housekeeping")){
             Housekeeping e = new Housekeeping(employeeList.size(), f, l);
-            employeeList.add(e);
+            addEmployee(e);
         } 
-
         else if(p.equalsIgnoreCase("manager")){
             Manager e = new Manager(employeeList.size(), f, l);
-            employeeList.add(e);
+            addEmployee(e);
         }
-        else if(p == "receptionist"){
+        else if(p.equalsIgnoreCase("receptionist")){
             Receptionist e = new Receptionist(employeeList.size(), f, l);
             addEmployee(e);
         }
@@ -124,12 +121,20 @@ public class EmployeeManagement {
      * Room assignments can be exported using another method within the Housekeeping class.
      */
     public static void employeesToCSV(){
-        String s = "ID,fName,lName,position\n";
+        String s = "ID,first name,last name,position,roomAssgn\n";  // CSV Header
         for(int i = 0; i < employeeList.size(); i++){
-            Employee employee = (Employee) employeeList.get(i);
-            s += employee.getID() + "," + employee.getFname() + "," + employee.getLname() + "," + employee.getPosition() + "\n";
+            if(employeeList.get(i).getPosition().equalsIgnoreCase("housekeeping")){ // If the Employee is part of the Housekeeping staff,
+                Housekeeping employee = (Housekeeping) employeeList.get(i);                       // we store their rooms in an array within the csv.
+                s += employee.getID() + "," + employee.getFname() + "," + employee.getLname() + "," + employee.getPosition();
+                for (Room r : employee.getRooms()){
+                    s+=";"+r.getNumber();
+                }
+            }
+            else{ // Otherwise, we just store their information in the given columns.
+                Employee employee = (Employee) employeeList.get(i);
+                s += employee.getID() + "," + employee.getFname() + "," + employee.getLname() + "," + employee.getPosition() + "\n";
+            }
         }
-        
         try{
             File file = new File("data/employees.csv");
             java.io.PrintWriter output = new java.io.PrintWriter(file);
@@ -157,7 +162,16 @@ public class EmployeeManagement {
                 String fName = lineBreak[1];
                 String lName = lineBreak[2];
                 String position = lineBreak[3];
-                if (position.equalsIgnoreCase("housekeeping")) employeeList.add(new Housekeeping(id, fName, lName));
+                if(position.equalsIgnoreCase("housekeeping")){
+                    employeeList.add(new Housekeeping(id, fName, lName));
+                    if(lineBreak.length == 5){
+                        String[] RoomNumbers = lineBreak[4].split(";");
+                        for(String numString : RoomNumbers){
+                            int num = Integer.parseInt(numString);
+                            ((Housekeeping) employeeList.get(employeeList.size()-1)).addRoom(RoomManagement.getRoom(num));
+                        }
+                    }
+                }
                 else if (position.equalsIgnoreCase("manager")) employeeList.add(new Manager(id, fName, lName)); 
                 else employeeList.add(new Employee(id, fName, lName, position));
             }
@@ -179,6 +193,7 @@ public class EmployeeManagement {
             java.io.PrintWriter output = new java.io.PrintWriter(file);
             output.print(employee.toString());
             output.close();
+            
             return employee.toString();
         } catch(IOException e){
             System.out.println("An error occurred.");

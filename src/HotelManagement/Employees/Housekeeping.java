@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class Housekeeping extends Employee{
-    ArrayList roomAssignment = new ArrayList<Room>();
+    public ArrayList<Room> roomAssignment = new ArrayList<Room>();
     public Housekeeping(int id, String f, String l){
         super(id, f, l, "Housekeeping");
     }
@@ -26,7 +26,7 @@ public class Housekeeping extends Employee{
         roomAssignment.remove(r);
     }
 
-    public ArrayList getRooms(){
+    public ArrayList<Room> getRooms(){
         return roomAssignment;
     }
     /*
@@ -36,7 +36,7 @@ public class Housekeeping extends Employee{
         String s = "";
         for(int i = 0; i < roomAssignment.size(); i++){
             Room room = (Room) roomAssignment.get(i);
-            s += room.getNumber() + "\n";
+            s += "\n"+ room.getNumber();
         }
         return s;
     }
@@ -82,7 +82,7 @@ public class Housekeeping extends Employee{
     
     public String toString(){
         if (roomAssignment.size()>0) return super.toString() +
-               "\nAssigned rooms: "+getRoomsString();
+               "\nAssigned rooms:"+getRoomsString();
         else return super.toString();
     }
 }

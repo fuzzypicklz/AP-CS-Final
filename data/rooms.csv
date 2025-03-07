@@ -1,0 +1,4 @@
+number,type,capacity,occupants,rate,balcony
+135,standard,5,0,150.0
+1236,Suite,2,0,100.0,false
+1237,Suite,5,0,200.0,true

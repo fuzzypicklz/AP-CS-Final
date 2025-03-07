@@ -5,6 +5,7 @@ Wage: 16.99
 Hours Worked: 0.0
 Overtime Hours: 0.0
 Total pay: 0.0
-Assigned rooms: 100
+Assigned rooms:
+100
 200
 202
