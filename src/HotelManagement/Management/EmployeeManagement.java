@@ -15,7 +15,10 @@ import java.io.IOException;
 
 public class EmployeeManagement {
     public static ArrayList<Employee> employeeList = new ArrayList<Employee>();
-
+    /*
+     * yet more debugging
+     */
+    /*
     public static void main(String[] args){
         
         EmployeeDebug();
@@ -24,11 +27,11 @@ public class EmployeeManagement {
         for(Employee e : employeeList){
             System.out.println(employeeSummary(e)+"\n");
         }
-        /*
-        employeesFromCSV();
-        System.out.println(getEmployeesString());
-        */
-    }
+        
+        //employeesFromCSV();
+        //System.out.println(getEmployeesString());
+        
+    }*/
     /*
      * Method testing for Employee Management
      */
@@ -88,6 +91,7 @@ public class EmployeeManagement {
     }
 
     public static void removeEmployee(Employee e){
+        
         employeeList.remove(e);
     }
     /*
@@ -104,10 +108,23 @@ public class EmployeeManagement {
     /*
      * Finds an Employee from arraylist<Employee> employeeList by ID and returns it as its respective position class.
      */
-    public static Object getEmployee(int id){
+    public static Employee getEmployee(int id){
         for (int i = 0; i < employeeList.size(); i++){
             Employee employee = (Employee) employeeList.get(i);
             if (employee.getID() == id){
+                if(employee.getPosition().toLowerCase() == "housekeeping") return (Housekeeping) employeeList.get(i);
+                else if(employee.getPosition().toLowerCase() == "manager") return (Manager) employeeList.get(i);
+                else return (Employee) employeeList.get(i);
+            }
+        }
+        System.out.println("Employee not found.");
+        return null;
+    }
+
+    public static Employee getEmployee(String fName, String lName){
+        for (int i = 0; i < employeeList.size(); i++){
+            Employee employee = (Employee) employeeList.get(i);
+            if (employee.getFname().equalsIgnoreCase(fName) && employee.getLname().equalsIgnoreCase(lName)){
                 if(employee.getPosition().toLowerCase() == "housekeeping") return (Housekeeping) employeeList.get(i);
                 else if(employee.getPosition().toLowerCase() == "manager") return (Manager) employeeList.get(i);
                 else return (Employee) employeeList.get(i);
