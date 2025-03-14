@@ -43,6 +43,18 @@ public class Room{
         return number;
     }
 
+    public void setCapacity(int cap){
+        this.capacity = cap;
+    }
+    
+    public void setType(String type){
+        this.type = type;
+    }
+
+    public void setRate(double rate){
+        this.dailyRate = rate;
+    }
+
     public boolean setOccupancy(int customers){
         if (!isOccupied && customers<=capacity) {
             isOccupied=true;

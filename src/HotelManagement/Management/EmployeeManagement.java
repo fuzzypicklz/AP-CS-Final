@@ -120,7 +120,9 @@ public class EmployeeManagement {
         System.out.println("Employee not found.");
         return null;
     }
-
+    /*
+     * Finds an Employee from arraylist<Employee> employeeList by first and last name and returns it as its respective position class.
+     */
     public static Employee getEmployee(String fName, String lName){
         for (int i = 0; i < employeeList.size(); i++){
             Employee employee = (Employee) employeeList.get(i);

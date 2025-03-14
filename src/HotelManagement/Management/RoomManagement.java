@@ -33,6 +33,28 @@ public class RoomManagement{
         removeRoom(r1);
     }
 
+    public static void addRoom(int number, int capacity, boolean isOccupied, double rate){
+        Room r = new Room(number, capacity, isOccupied, rate);
+        if (getRoom(r.getNumber()) == null){
+            roomList.add(r);
+            System.out.println("Room "+r.getNumber()+" was added to roomList.");
+        }
+        else{
+            System.out.println("Room " + r.getNumber() + " already exists!");
+        }
+    }
+
+    public static void addSuite(int number, int capacity, boolean isOccupied, boolean hasBalcony, double rate){
+        Suite r = new Suite(number, capacity, isOccupied, hasBalcony, rate);
+        if (getRoom(r.getNumber()) == null){
+            roomList.add(r);
+            System.out.println("Room "+r.getNumber()+" was added to roomList.");
+        }
+        else{
+            System.out.println("Room " + r.getNumber() + " already exists!");
+        }
+    }
+
     public static void addRoom(Room r){
         if (getRoom(r.getNumber()) == null){
             roomList.add(r);
