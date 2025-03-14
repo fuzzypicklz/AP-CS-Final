@@ -10,7 +10,9 @@ import java.io.IOException;
 
 public class RoomManagement{
     public ArrayList roomList = new ArrayList<Room>();
-
+    /*
+     * Debugging method to add rooms for testing purposes
+     */
     public void roomDebug(){
         Room r1 = new Room(134);
         Room r2 = new Room(135, 5, false, 150.00);
@@ -29,7 +31,13 @@ public class RoomManagement{
     public void removeRoom(Room r){
         roomList.remove(r);
     }
-
+    
+    public ArrayList<Room> getRoomList(){
+        return roomList;
+    }
+    /*
+     * Sends the assigned rooms to a formatted String.
+     */
     public String getRoomsString(){
         String s = "";
         for(int i = 0; i < roomList.size(); i++){
@@ -38,7 +46,9 @@ public class RoomManagement{
         }
         return s;
     }
-
+    /*
+     * Returns a room object based on the room number
+     */
     public Room getRoom(int number){
         for (int i = 0; i < roomList.size(); i++){
             Room room = (Room) roomList.get(i);
@@ -49,7 +59,9 @@ public class RoomManagement{
         System.out.println("Room not found.");
         return null;
     }
-
+    /*
+     * Exports a CSV associated with the list of rooms
+     */
     public void roomsToCSV(){
         String s = "";
         for(int i = 0; i < roomList.size(); i++){
@@ -67,7 +79,9 @@ public class RoomManagement{
             e.printStackTrace();
         }
     }
-
+    /*
+     * Loads rooms from a CSV file
+     */
     public void roomsFromCSV(){
         try{
             File file = new File("rooms.csv");
