@@ -47,6 +47,10 @@ public class Employee {
         return lName;
     }
 
+    public double getWage(){
+        return wage;
+    }
+
     public String getHoursWorkedString(){
         return  "Standard hours: " + hoursWorked+
                 "Overtime Hours: " + overtimeHours;
@@ -75,6 +79,19 @@ public class Employee {
 
     public void setWage(double w){
         wage = w;
+    }
+
+    public void setName(String f, String l){
+        fName = f;
+        lName = l;
+    }
+
+    public void setID(int i){
+        ID = i;
+    }
+    
+    public void setPosition(String p){
+        position = p;
     }
 
     public String toString(){

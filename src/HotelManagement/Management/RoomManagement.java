@@ -96,6 +96,14 @@ public class RoomManagement{
         System.out.println("Room " + number + " not found.");
         return null;
     }
+    public static String getRoomListString(){
+        String s = "";
+        for(Room room : roomList){
+            s+=room.getNumber();
+            s+="\n";
+        }
+        return s;
+    }
     /*
      * exports a CSV containing all Room data.
      */
