@@ -174,6 +174,11 @@ public class EmployeeManagement {
             File file = new File("data/employees.csv");
             Scanner input = new Scanner(file);
             input.nextLine();
+
+            String names = "";
+            for(Employee e : employeeList){
+                names += e.getFname() + " " + e.getLname() + "\n";
+            }
             while(input.hasNext()){
                 String line = input.nextLine();
                 String[] lineBreak = line.split(",");
@@ -181,6 +186,12 @@ public class EmployeeManagement {
                 String fName = lineBreak[1];
                 String lName = lineBreak[2];
                 String position = lineBreak[3];
+                
+                if(names.contains(fName + " " + lName)) { // Prevents duplicates
+                    System.out.println("Employee already exists: " + fName + " " + lName);
+                    continue;
+                }
+
                 if(position.equalsIgnoreCase("housekeeping")){
                     employeeList.add(new Housekeeping(id, fName, lName));
                     if(lineBreak.length == 5){

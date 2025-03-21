@@ -24,11 +24,12 @@ public class HotelDriver {
                 
                 AdminInterface();
             }
-            /*if(choice.equals("2")){
-                
-            }*/
+            if(choice.equals("2")){
+                CustomerInterface();
+            }
         }
     }
+    
     public static void AdminInterface(){
         Scanner input = new Scanner(System.in);
         String choice = "";
@@ -57,6 +58,7 @@ public class HotelDriver {
             }
         }
     }
+    
     public static void EmployeeSystem(){
         Scanner input = new Scanner(System.in);
         String choice = "";
@@ -242,23 +244,59 @@ public class HotelDriver {
             System.out.print("Input ID\n>> ");
             int ID = input.nextInt();
             Employee employee = EmployeeManagement.getEmployee(ID);
+            if(employee != null){
+                System.out.println(employee.toString());
+            } else {
+                System.out.println("Employee not found.");
+            }
         }
         if(choice == 2){
             System.out.print("Input Full name\n>> ");
             String[] names = input.nextLine().split(" ");
             Employee employee = EmployeeManagement.getEmployee(names[0], names[1]);
+            if(employee != null){
+                System.out.println(employee.toString());
+            } else {
+                System.out.println("Employee not found.");
+            }
         }
         
     }
 
     public static void ExportEmployeeSummaryLogic(){
-        // TODO
+        Scanner input = new Scanner(System.in);
+        System.out.print("\nChoose ID method:\n1. ID\n2. Full name\n>> ");
+        int choice = input.nextInt();
+        if(choice == 1){
+            System.out.print("Input ID\n>> ");
+            int ID = input.nextInt();
+            Employee employee = EmployeeManagement.getEmployee(ID);
+            if(employee != null){
+                EmployeeManagement.employeeSummary(employee);
+            } else {
+                System.out.println("Employee not found.");
+            }
+        }
+        else if(choice == 2){
+            System.out.print("Input Full name\n>> ");
+            String[] names = input.nextLine().split(" ");
+            Employee employee = EmployeeManagement.getEmployee(names[0], names[1]);
+            if(employee != null){
+                EmployeeManagement.employeeSummary(employee);
+            } else {
+                System.out.println("Employee not found.");
+            }
+        }
+        else{
+            System.out.println("Invalid choice. please input 1 or 2.");
+            return;
+        }
     }
 
     public static void RoomSystem(){
         Scanner input = new Scanner(System.in);
         String choice = "";
-        while (!choice.equalsIgnoreCase("exit") || choice.equalsIgnoreCase("e")) {
+        while (!choice.equalsIgnoreCase("exit") && !choice.equalsIgnoreCase("e")) {
             System.out.println("\nRoom Management System");
             System.out.println("1. Add Room");
             System.out.println("2. Remove Room");
@@ -270,7 +308,7 @@ public class HotelDriver {
             System.out.println("Type 'exit' to quit.");
             System.out.print(">> ");
             choice = input.nextLine();
-            switch (choice){
+            switch (choice.toLowerCase()){
                 case "1":
                     AddRoomLogic();
                     break;
@@ -301,15 +339,17 @@ public class HotelDriver {
                 default:
                     System.out.println("Invalid choice, please try again.");
             }
+            
+            System.out.println("\n");
         }
     }
 
     public static void AddRoomLogic(){
         Scanner input = new Scanner(System.in);
-        System.out.print("\nEnter room type (1 for Suite, 2 for Standard):\n>> ");
+        System.out.print("\nEnter room type (1 for Standard, 2 for Suite):\n>> ");
         int roomType = input.nextInt();
         if (roomType != 1 && roomType != 2) {
-            System.out.print("Invalid room type. Please enter 1 for Suite or 2 for Standard.");
+            System.out.print("Invalid room type. Please enter 1 for Standard or 2 for Suite.");
             return;
         }
 
@@ -320,6 +360,7 @@ public class HotelDriver {
             int capacity = input.nextInt();
             System.out.print("Enter room rate:\n>> ");
             double rate = input.nextDouble();
+            input.nextLine(); // Consume leftover newline
             System.out.print("Is the room occupied? (y/n)\n>> ");
             String occupied = input.nextLine();
             System.out.print("has balcony? (y/n)\n>> ");
@@ -334,6 +375,7 @@ public class HotelDriver {
             int capacity = input.nextInt();
             System.out.print("Enter room rate:\n>> ");
             double rate = input.nextDouble();
+            input.nextLine(); // Consume leftover newline
             System.out.print("Is the room occupied? (y/n)\n>> ");
             String occupied = input.nextLine();
             RoomManagement.addRoom(new Room(number, capacity, occupied.equalsIgnoreCase("y"), rate));
@@ -398,18 +440,170 @@ public class HotelDriver {
 
     public static void ViewRoomsLogic(){
         Scanner s = new Scanner(System.in);
-        RoomManagement.getRoomListString();
+        System.out.println(RoomManagement.getRoomListString());
         System.out.print("Input room number for more details or type exit.\n>> ");
+        String input = s.nextLine();
+        if (!input.equalsIgnoreCase("exit") && !input.equalsIgnoreCase("e")) {
+            Room room = RoomManagement.getRoom(Integer.parseInt(input));
+            if(room!=null){
+                System.out.println("\n"+room.toString());
+                s.nextLine();
+            }
+        }
+        else{
+            System.out.println("Exiting...");
+            return;
+        }
+    }
+
+    public static void RoomSummaryLogic(){
+        Scanner s = new Scanner(System.in);
+        RoomManagement.getRoomListString();
+        System.out.print("Input room number for summary or type exit.\n>> ");
         String input = s.nextLine();
         if (!input.equalsIgnoreCase("exit") && !input.equalsIgnoreCase("e")) {
             Room room = RoomManagement.getRoom(Integer.parseInt(input));
             if(room!=null){
                 System.out.println(room.toString());
             }
+            else{
+                System.out.println("Room not found.");
+            }
         }
     }
 
-    public static void RoomSummaryLogic(){
-        // TODO
+    public static void CustomerInterface(){
+        Scanner input = new Scanner(System.in);
+        String choice = "";
+
+        while (!choice.equalsIgnoreCase("exit") && !choice.equalsIgnoreCase("exit")) {
+            System.out.println("\nWelcome to the Customer Interface");
+            System.out.println("1. Book Room");
+            System.out.println("2. Browse Rooms");
+            System.out.println("3. View Room Details");
+            System.out.print(">> ");
+            choice = input.nextLine();
+            if(choice.equals("1")){
+                RoomBookingLogic();
+            }
+            else if(choice.equals("2")){
+                BrowseRoomsLogic();
+            }
+            else if(choice.equals("3")){
+                ViewRoomsLogic();
+            }
+            else if(choice.equalsIgnoreCase("exit") || choice.equalsIgnoreCase("e")){
+                System.out.println("Exiting...");
+                return;
+            }
+            else{
+                System.out.println("Invalid choice, please try again.");
+            }
+            
+        }
+    }
+
+    public static void RoomBookingLogic(){
+        System.out.print("Input room number\n>> ");
+        Scanner input = new Scanner(System.in);
+        int number = input.nextInt();
+        Room room = RoomManagement.getRoom(number);
+
+        if(room != null){
+            System.out.println("Room " + number + " is available for booking.");
+            System.out.print("Would you like to book this room? (y/n)\n>> ");
+            String choice = input.next();
+            System.out.print("How many days are you staying? \n>> ");
+            int days = input.nextInt();
+            double totalCost = room.getRate() * days;
+            System.out.print("How many people are in the room? \n>> ");
+            int customers = input.nextInt();
+            input.nextLine(); // Consume leftover newline
+            System.out.println("Total cost for " + days + " days is: $" + totalCost);
+            if(choice.equalsIgnoreCase("y")){
+                
+                room.setOccupancy(customers); // Assuming 1 person for simplicity
+                System.out.println("Room " + number + " has been booked. you have been charged "+totalCost+" for "+days+" days stay.");
+            }
+            else{
+                System.out.println("Booking cancelled.");
+            }
+        }
+        else{
+            System.out.println("Room " + number + " not found.");
+        }
+    }
+
+    public static void BrowseRoomsLogic(){
+        System.out.println("Available Rooms:");
+        System.out.println(RoomManagement.getUnoccupiedRoomListString());
+
+        System.out.println("Room Browser");
+
+        System.out.println("1. Change search parameters:");
+        
+        System.out.print(">> ");
+        Scanner input = new Scanner(System.in);
+        String choice = input.nextLine();
+
+        if(choice.equals("1")){
+            System.out.println("Room Parameters:");
+            System.out.println("1. Room Type");
+            System.out.println("2. Room Rate");
+            System.out.println("3. Room Capacity");
+
+            System.out.print(">> ");
+
+            String paramChoice = input.nextLine();
+
+            if(paramChoice.equals("1")){
+                System.out.print("Enter room type (1 for Suite, 2 for Standard):\n>> ");
+                int roomType = input.nextInt();
+                if(roomType == 1){
+                    for (Room r : RoomManagement.roomList) {
+                        if (r instanceof Suite) {
+                            System.out.println(r.toString());
+                        }
+                    }
+                }
+                else if(roomType == 2){
+                    for (Room r : RoomManagement.roomList) {
+                        if (r instanceof Room) {
+                            System.out.println(r.toString());
+                        }
+                    }
+                }
+                else{
+                    System.out.println("Invalid room type. Please enter 1 for Suite or 2 for Standard.");
+                }
+            }
+            else if(paramChoice.equals("2")){
+                System.out.print("Enter minimum room rate:\n>> ");
+                double minRate = input.nextDouble();
+                System.out.print("Enter maximum room rate:\n>> ");
+                double maxRate = input.nextDouble();
+                for (Room r : RoomManagement.roomList) {
+                    if (r.getRate() <= maxRate && r.getRate() >= minRate) {
+                        System.out.println(r.toString());
+                    }
+                }
+            }
+            else if(paramChoice.equals("3")){
+                System.out.print("Enter minimum room capacity:\n>> ");
+                int minCapacity = input.nextInt();
+                System.out.print("Enter maximum room capacity:\n>> ");
+                int maxCapacity = input.nextInt();
+                for (Room r : RoomManagement.roomList) {
+                    if (r.getOccupancy() <= maxCapacity && r.getOccupancy() >= minCapacity) {
+                        System.out.println(r.toString());
+                    }
+                }
+            }
+        }
+        else{
+            System.out.println("Invalid choice, please try again.");
+        }
+
+
     }
 }

@@ -96,11 +96,39 @@ public class RoomManagement{
         System.out.println("Room " + number + " not found.");
         return null;
     }
+    /*
+     * Returns an ArrayList of all Rooms.
+     */
     public static String getRoomListString(){
         String s = "";
         for(Room room : roomList){
             s+=room.getNumber();
             s+="\n";
+        }
+        return s;
+    }
+    /*
+     * Returns an ArrayList of unoccupied Rooms.
+     */
+    public static ArrayList<Room> getUnoccupiedRoomList(){
+        ArrayList<Room> unoccupiedRooms = new ArrayList<Room>();
+        for(Room room : roomList){
+            if(room.getOccupants()==0){
+                unoccupiedRooms.add(room);
+            }
+        }
+        return unoccupiedRooms;
+    }
+    /*
+     * Returns a formatted String of unoccupied Rooms.
+     */
+    public static String getUnoccupiedRoomListString(){
+        String s = "";
+        for(Room room : roomList){
+            if(room.getOccupants()==0){
+                s+=room.getNumber();
+                s+="\n";
+            }
         }
         return s;
     }
@@ -146,13 +174,20 @@ public class RoomManagement{
         try{
             File file = new File("data/rooms.csv");
             java.util.Scanner input = new java.util.Scanner(file);
+            input.nextLine();
+
+            String list = getRoomListString();
             while(input.hasNext()){
                 String[] lineBreak = input.nextLine().split(",");
                 int number = Integer.parseInt(lineBreak[0]);
                 String type = lineBreak[1];
                 int cap = Integer.parseInt(lineBreak[2]);
                 int occ = Integer.parseInt(lineBreak[3]);
-                int rate = Integer.parseInt(lineBreak[4]);
+                double rate = Double.parseDouble(lineBreak[4]);
+                if(list.contains(""+number)){
+                    System.out.println("Room " + number + " already exists");
+                    continue;
+                }
                 if (type.equalsIgnoreCase("suite")){
                     boolean hasBalc = Boolean.parseBoolean(lineBreak[5]);
                     if (occ>0) { // if there is at least 1 person in the room (since only the amount of people is stored in the CSV) set isocc to true
