@@ -511,8 +511,6 @@ public class HotelDriver {
 
         if(room != null){
             System.out.println("Room " + number + " is available for booking.");
-            System.out.print("Would you like to book this room? (y/n)\n>> ");
-            String choice = input.next();
             System.out.print("How many days are you staying? \n>> ");
             int days = input.nextInt();
             double totalCost = room.getRate() * days;
@@ -520,10 +518,13 @@ public class HotelDriver {
             int customers = input.nextInt();
             input.nextLine(); // Consume leftover newline
             System.out.println("Total cost for " + days + " days is: $" + totalCost);
+            System.out.print("Would you like to book this room? (y/n)\n>> ");
+            String choice = input.next();
             if(choice.equalsIgnoreCase("y")){
                 
                 room.setOccupancy(customers); // Assuming 1 person for simplicity
                 System.out.println("Room " + number + " has been booked. you have been charged "+totalCost+" for "+days+" days stay.");
+                // TODO recipt
             }
             else{
                 System.out.println("Booking cancelled.");
@@ -557,19 +558,19 @@ public class HotelDriver {
             String paramChoice = input.nextLine();
 
             if(paramChoice.equals("1")){
-                System.out.print("Enter room type (1 for Suite, 2 for Standard):\n>> ");
+                System.out.print("Enter room type (1 for Standard, 2 for Suite):\n>> ");
                 int roomType = input.nextInt();
                 if(roomType == 1){
                     for (Room r : RoomManagement.roomList) {
-                        if (r instanceof Suite) {
-                            System.out.println(r.toString());
+                        if (r instanceof Room) {
+                            System.out.println(r.getNumber());
                         }
                     }
                 }
                 else if(roomType == 2){
                     for (Room r : RoomManagement.roomList) {
-                        if (r instanceof Room) {
-                            System.out.println(r.toString());
+                        if (r instanceof Suite) {
+                            System.out.println(r.getNumber());
                         }
                     }
                 }
@@ -584,7 +585,7 @@ public class HotelDriver {
                 double maxRate = input.nextDouble();
                 for (Room r : RoomManagement.roomList) {
                     if (r.getRate() <= maxRate && r.getRate() >= minRate) {
-                        System.out.println(r.toString());
+                        System.out.println(r.getNumber());
                     }
                 }
             }
@@ -595,7 +596,7 @@ public class HotelDriver {
                 int maxCapacity = input.nextInt();
                 for (Room r : RoomManagement.roomList) {
                     if (r.getOccupancy() <= maxCapacity && r.getOccupancy() >= minCapacity) {
-                        System.out.println(r.toString());
+                        System.out.println(r.getNumber());
                     }
                 }
             }
