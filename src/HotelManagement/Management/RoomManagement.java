@@ -8,6 +8,8 @@ import HotelManagement.Rooms.Suite;
 import java.io.File;
 import java.io.IOException;
 
+import java.util.Date; // TODO BIG IMPORTANTE
+
 public class RoomManagement{
     public static ArrayList<Room> roomList = new ArrayList<Room>();
     public static void main(String[] args){
@@ -213,6 +215,12 @@ public class RoomManagement{
         } catch (IOException e){
             System.out.println("An error occurred.");
             e.printStackTrace();
+        }
+    }
+
+    public static void PrintRecipt(String name, int days){
+        try{
+            File file = new File()
         }
     }
 }

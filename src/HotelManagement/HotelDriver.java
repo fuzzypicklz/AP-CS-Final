@@ -509,14 +509,23 @@ public class HotelDriver {
         int number = input.nextInt();
         Room room = RoomManagement.getRoom(number);
 
-        if(room != null){
+        if(room != null && room.getOccupants()==0){
             System.out.println("Room " + number + " is available for booking.");
+            System.out.print("Please input your name.\n>> ")
+            String name = input.nextLine();
             System.out.print("How many days are you staying? \n>> ");
             int days = input.nextInt();
             double totalCost = room.getRate() * days;
-            System.out.print("How many people are in the room? \n>> ");
+            System.out.print("How many people are staying in the room? \n>> ");
             int customers = input.nextInt();
             input.nextLine(); // Consume leftover newline
+            if(customers <= room.getOccupancy()){
+                continue;
+            }
+            else{
+                System.out.println("Too many people! pick another room");
+                return;
+            }
             System.out.println("Total cost for " + days + " days is: $" + totalCost);
             System.out.print("Would you like to book this room? (y/n)\n>> ");
             String choice = input.next();
@@ -531,7 +540,7 @@ public class HotelDriver {
             }
         }
         else{
-            System.out.println("Room " + number + " not found.");
+            System.out.println("Room " + number + " is not availabe.");
         }
     }
 
@@ -562,7 +571,7 @@ public class HotelDriver {
                 int roomType = input.nextInt();
                 if(roomType == 1){
                     for (Room r : RoomManagement.roomList) {
-                        if (r instanceof Room) {
+                        if (!(r instanceof Suite)) {
                             System.out.println(r.getNumber());
                         }
                     }
