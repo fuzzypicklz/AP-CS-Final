@@ -3,6 +3,7 @@ package HotelManagement.Employees;
 import java.util.ArrayList;
 
 import HotelManagement.Rooms.Room;
+import HotelManagement.Rooms.Standard;
 
 import java.io.File;
 import java.io.IOException;
@@ -69,7 +70,7 @@ public class Housekeeping extends Employee{
             java.util.Scanner input = new java.util.Scanner(file);
             while(input.hasNext()){
                 String s = input.next();
-                Room r = new Room(Integer.parseInt(s));
+                Standard r = new Standard(Integer.parseInt(s));
                 roomAssignment.add(r);
             }
             input.close();

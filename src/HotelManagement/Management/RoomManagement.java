@@ -3,6 +3,7 @@ package HotelManagement.Management;
 import java.util.ArrayList;
 
 import HotelManagement.Rooms.Room;
+import HotelManagement.Rooms.Standard;
 import HotelManagement.Rooms.Suite;
 
 import java.io.File;
@@ -20,8 +21,8 @@ public class RoomManagement{
      * Method testing
      */
     public static void roomDebug(){
-        Room r1 = new Room(134);
-        Room r2 = new Room(135, 5, false, 150.00);
+        Room r1 = new Standard(134);
+        Room r2 = new Standard(135, 5, false, 150.00);
         Suite s1 = new Suite(1236);
         Suite s2 = new Suite(1237, 5, false, true, 200.00);
         addRoom(r1);
@@ -33,10 +34,12 @@ public class RoomManagement{
 
         removeRoom(r1);
         removeRoom(r1);
+
+        PrintRecipt("JohnDoe", 3, new Date(), r2); // Example of how to call PrintRecipt, this will create a file in the current directory with the name "134JohnDoeWed Oct 11 14:32:00 UTC 2023.txt" (example date)
     }
 
-    public static void addRoom(int number, int capacity, boolean isOccupied, double rate){
-        Room r = new Room(number, capacity, isOccupied, rate);
+    public static void addStandard(int number, int capacity, boolean isOccupied, double rate){
+        Room r = new Standard(number, capacity, isOccupied, rate);
         if (getRoom(r.getNumber()) == null){
             roomList.add(r);
             System.out.println("Room "+r.getNumber()+" was added to roomList.");
@@ -144,7 +147,7 @@ public class RoomManagement{
                 Suite room = (Suite) roomList.get(i);
                 s += room.getNumber() + ",";
                 s += room.getType() + ",";
-                s += room.getOccupancy() + ",";
+                s += room.getCapacity() + ",";
                 s += room.getOccupants() + ",";
                 s += room.getRate() + ",";
                 s += room.hasBalcony()+"\n";
@@ -153,7 +156,7 @@ public class RoomManagement{
                 Room room = (Room) roomList.get(i);
                 s += room.getNumber() + ",";
                 s += room.getType() + ",";
-                s += room.getOccupancy() + ",";
+                s += room.getCapacity() + ",";
                 s += room.getOccupants() + ",";
                 s += room.getRate() + "\n";
             }
@@ -202,11 +205,11 @@ public class RoomManagement{
                 }
                 else if(type.equalsIgnoreCase("standard")){
                     if(occ>0){
-                        roomList.add(new Room(number,cap,true,rate));
+                        roomList.add(new Standard(number,cap,true,rate));
                         roomList.get(roomList.size()-1).setOccupancy(occ);
                     }
                     else{
-                        roomList.add(new Room(number,cap,false,rate));
+                        roomList.add(new Standard(number,cap,false,rate));
                     }
                 }
             }
@@ -218,9 +221,35 @@ public class RoomManagement{
         }
     }
 
-    public static void PrintRecipt(String name, int days){
+    public static void PrintRecipt(String name, int days, Date dayIn, Room room){
+        
         try{
-            File file = new File()
+            File file = new File("data/"+room.getNumber()+name+(dayIn.getMonth()+1)+"-"+dayIn.getDate()+"-"+dayIn.getYear()+".txt");
+            java.io.PrintWriter output = new java.io.PrintWriter(file);
+
+            java.util.Calendar calendar = java.util.Calendar.getInstance();
+            calendar.setTime(dayIn);
+            calendar.add(java.util.Calendar.DATE, days);
+            Date dayOut = calendar.getTime();
+
+            output.println("Thank you, "+name+" for staying with us!");
+            output.println("Room Number: " + room.getNumber());
+            output.println("Room Type: " + room.getType());
+            output.println("Check-in Date: " + (dayIn.getMonth()+1)+"/"+dayIn.getDate()+"/"+dayIn.getYear());
+            output.println("Check-out Date: " + (dayOut.getMonth()+1)+"/"+dayOut.getDate()+"/"+dayOut.getYear()); // Calculate check-out date based on days stayed
+            output.println("Number of Nights: " + days);
+            output.println("Rate per Night: $" + room.getRate());
+            output.print("\n");
+            output.println("Total Amount: $" + (room.getRate() * days)); // Total amount for the stay
+            output.println("We hope you enjoy your stay!");
+            output.close();
+
+            System.out.println("Receipt created successfully");
+            return;
+        } catch (Exception e) {
+            System.out.println("An error occurred while creating the file.");
+            e.printStackTrace();
+            return; // Exit if file creation fails
         }
     }
 }

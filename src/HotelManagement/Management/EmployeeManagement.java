@@ -7,7 +7,7 @@ import HotelManagement.Employees.Housekeeping;
 import HotelManagement.Employees.Manager;
 import HotelManagement.Employees.Receptionist;
 
-import HotelManagement.Rooms.Room;
+import HotelManagement.Rooms.Standard;
 import HotelManagement.Rooms.Suite;
 
 import java.io.File;
@@ -48,9 +48,9 @@ public class EmployeeManagement {
         addEmployee("Joe", "Doe", "Intern");
         addEmployee("Joe", "Shmoe", "Safety Officer");
 
-        Room r1 = new Room(100);
-        Room r2 = new Room(200, 4, false, 135);
-        Room s1 = new Suite(202, 5, false,true,300);
+        Standard r1 = new Standard(100);
+        Standard r2 = new Standard(200, 4, false, 135);
+        Standard s1 = new Suite(202, 5, false,true,300);
         Housekeeping h = (Housekeeping) employeeList.get(2);
         h.addRoom(r1);
         h.addRoom(r2);
@@ -145,7 +145,7 @@ public class EmployeeManagement {
             if(employeeList.get(i).getPosition().equalsIgnoreCase("housekeeping")){ // If the Employee is part of the Housekeeping staff,
                 Housekeeping employee = (Housekeeping) employeeList.get(i);                       // we store their rooms in an array within the csv.
                 s += employee.getID() + "," + employee.getFname() + "," + employee.getLname() + "," + employee.getPosition();
-                for (Room r : employee.getRooms()){
+                for (Standard r : employee.getRooms()){
                     s+=";"+r.getNumber();
                 }
             }
