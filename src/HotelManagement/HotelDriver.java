@@ -511,7 +511,7 @@ public class HotelDriver {
 
         if(room != null && room.getOccupants()==0){
             System.out.println("Room " + number + " is available for booking.");
-            System.out.print("Please input your name.\n>> ")
+            System.out.print("Please input your name.\n>> ");
             String name = input.nextLine();
             System.out.print("How many days are you staying? \n>> ");
             int days = input.nextInt();
@@ -519,10 +519,7 @@ public class HotelDriver {
             System.out.print("How many people are staying in the room? \n>> ");
             int customers = input.nextInt();
             input.nextLine(); // Consume leftover newline
-            if(customers <= room.getOccupancy()){
-                continue;
-            }
-            else{
+            if(customers > room.getOccupancy()){
                 System.out.println("Too many people! pick another room");
                 return;
             }
@@ -533,7 +530,7 @@ public class HotelDriver {
                 
                 room.setOccupancy(customers); // Assuming 1 person for simplicity
                 System.out.println("Room " + number + " has been booked. you have been charged "+totalCost+" for "+days+" days stay.");
-                // TODO recipt
+                RoomManagement.PrintRecipt(name, days);
             }
             else{
                 System.out.println("Booking cancelled.");

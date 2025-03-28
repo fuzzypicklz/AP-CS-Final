@@ -1,6 +1,6 @@
 package HotelManagement.Rooms;
 
-import java.time.*;
+import java.util.Date;
 
 public class Room{
     private int capacity = 2;
@@ -9,6 +9,10 @@ public class Room{
     private int occupants = 0;
     private double dailyRate = 100.00;
     private String type = "standard";
+
+    private Date checkinDate; // TODO BIG IMPORTANTE    
+    private Date checkoutDate;
+
     public Room(int num, int cap, boolean isOcc, double rate){
         this.capacity = cap;
         this.number = num;
@@ -64,6 +68,10 @@ public class Room{
             return true; // returns true if successful
         }
         return false;
+    }
+
+    public void BookSelf(int customers, Date checkIn, int days){
+        
     }
 
     public String toString(){
