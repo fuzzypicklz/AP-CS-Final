@@ -19,10 +19,18 @@ public class Housekeeping extends Employee{
         roomAssignment = rooms;
     }
 
+    /**
+     * Adds a room to the housekeeping staff's room assignment list.
+     * @param r The room to add.
+     */
     public void addRoom(Room r){
         roomAssignment.add(r);
     }
 
+    /**
+     * Removes a room from the housekeeping staff's room assignment list.
+     * @param r The room to remove.
+     */
     public void removeRoom(Room r){
         roomAssignment.remove(r);
     }
@@ -30,8 +38,10 @@ public class Housekeeping extends Employee{
     public ArrayList<Room> getRooms(){
         return roomAssignment;
     }
-    /*
-     * Sends the assigned rooms to a formatted String.
+    
+    /**
+     * Sends the assigned rooms to a formatted string.
+     * @return A string representation of the assigned rooms.
      */
     public String getRoomsString(){
         String s = "";
@@ -41,8 +51,9 @@ public class Housekeeping extends Employee{
         }
         return s;
     }
-    /*
-     * Exports a CSV associated with the Employee of the list of rooms they have been assigned
+
+    /**
+     * Exports a CSV associated with the employee of the list of rooms they have been assigned.
      */
     public void roomsToCSV(){
         String s = "";
@@ -61,8 +72,9 @@ public class Housekeeping extends Employee{
             e.printStackTrace();
         }
     }
-    /*
-     * Imports a CSV associated with the Employee of the rooms they hav ebeen assigned.
+
+    /**
+     * Imports a CSV associated with the employee of the rooms they have been assigned.
      */
     public void roomsFromCSV(){
         try{

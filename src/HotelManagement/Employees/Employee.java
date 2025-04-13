@@ -55,21 +55,30 @@ public class Employee {
         return  "Standard hours: " + hoursWorked+
                 "Overtime Hours: " + overtimeHours;
     }
-    /*
+
+    /**
      * Calculates pay based on currently logged hours.
+     * @return The calculated pay.
      */
     public double calculatePay(){
         return hoursWorked * wage;
     }
-    /*
+
+    /**
      * Adds hours, then calculates pay.
+     * @param extraHours The additional hours worked.
+     * @return The calculated pay.
      */
     public double calculatePay(double extraHours){
         hoursWorked += extraHours;
         return calculatePay();
     }
-    /*
+
+    /**
      * Adds hours, adds overtime hours, then calculates pay based on a 1.5x overtime bonus.
+     * @param extraHours The additional hours worked.
+     * @param extraOvertime The additional overtime hours worked.
+     * @return The calculated pay.
      */
     public double calculatePay(double extraHours, double extraOvertime){
         hoursWorked += extraHours;

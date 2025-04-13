@@ -10,6 +10,10 @@ import java.util.Scanner;
 import java.util.Date;
 import java.util.ArrayList;
 
+/**
+ * The main driver class for the hotel management system.
+ * Provides interfaces for administrators and customers to interact with the system.
+ */
 public class HotelDriver {
     /**
      * Main entry point for the Hotel Management System.
@@ -609,7 +613,7 @@ public class HotelDriver {
         RoomManagement.getRoomListString();
         System.out.print("Input room number for summary or type exit.\n>> ");
         String input = s.nextLine();
-        if (!input.equalsIgnoreCase("exit") && !input.equalsIgnoreCase("e")) {
+        if (!input.equalsIgnoreCase("exit") && !input.equalsIgnoreCase("e") && !input.equals("")) {
             Room room = RoomManagement.getRoom(Integer.parseInt(input));
             if(room!=null){
                 System.out.println(room.toString());
@@ -782,7 +786,11 @@ public class HotelDriver {
             System.out.println("Invalid choice, please try again.");
         }
     }
-
+    
+    /**
+     * Logic for viewing room details from the customer interface.
+     * This method allows customers to view details of available rooms.
+     */
     public static void CustomerViewRoomsLogic(){
         Scanner s = new Scanner(System.in);
         System.out.println(RoomManagement.getUnoccupiedRoomListString());

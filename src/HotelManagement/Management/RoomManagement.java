@@ -11,6 +11,11 @@ import java.io.IOException;
 
 import java.util.Date; // TODO BIG IMPORTANTE
 
+/**
+ * Manages rooms in the hotel management system.
+ * Provides functionality to add, remove, and retrieve rooms,
+ * as well as export and import room data.
+ */
 public class RoomManagement{
     public static ArrayList<Room> roomList = new ArrayList<Room>();
     public static void main(String[] args){
@@ -60,6 +65,10 @@ public class RoomManagement{
         }
     }
 
+    /**
+     * Adds a room to the room list.
+     * @param room The Room object to add.
+     */
     public static void addRoom(Room r){
         if (getRoom(r.getNumber()) == null){
             roomList.add(r);
@@ -70,6 +79,10 @@ public class RoomManagement{
         }
     }
 
+    /**
+     * Removes a room from the room list.
+     * @param room The Room object to remove.
+     */
     public static void removeRoom(Room r){
         if(roomList.contains(r)){
             roomList.remove(r);
@@ -91,6 +104,11 @@ public class RoomManagement{
     /*
      * Returns a given Room based on its number.
      */
+    /**
+     * Retrieves a room by its number.
+     * @param number The room number.
+     * @return The Room object, or null if not found.
+     */
     public static Room getRoom(int number){
         for (int i = 0; i < roomList.size(); i++){
             Room room = (Room) roomList.get(i);
@@ -103,6 +121,10 @@ public class RoomManagement{
     }
     /*
      * Returns an ArrayList of all Rooms.
+     */
+    /**
+     * Retrieves a string representation of all rooms in the system.
+     * @return A formatted string containing all rooms.
      */
     public static String getRoomListString(){
         String s = "";
@@ -127,6 +149,10 @@ public class RoomManagement{
     /*
      * Returns a formatted String of unoccupied Rooms.
      */
+    /**
+     * Retrieves a string representation of all unoccupied rooms in the system.
+     * @return A formatted string containing all unoccupied rooms.
+     */
     public static String getUnoccupiedRoomListString(){
         String s = "";
         for(Room room : roomList){
@@ -139,6 +165,9 @@ public class RoomManagement{
     }
     /*
      * exports a CSV containing all Room data.
+     */
+    /**
+     * Exports all room data to a CSV file.
      */
     public static void roomsToCSV(){
         String s = "number,type,capacity,occupants,rate,balcony\n";
@@ -174,6 +203,9 @@ public class RoomManagement{
     }
     /*
      * APPENDS all rooms
+     */
+    /**
+     * Imports room data from a CSV file.
      */
     public static void roomsFromCSV(){
         try{
@@ -220,7 +252,21 @@ public class RoomManagement{
             e.printStackTrace();
         }
     }
-
+    /*
+     * Prints a receipt for a given room and stay duration.
+     * Creates a text file in the "data" directory with the receipt details.
+     * @param name The name of the guest
+     * @param days The number of days stayed
+     * @param dayIn The check-in date
+     * @param room The room object for which the receipt is being generated
+     */
+    /**
+     * Prints a receipt for a room booking.
+     * @param name The name of the customer.
+     * @param days The number of days booked.
+     * @param checkIn The check-in date.
+     * @param room The Room object being booked.
+     */
     public static void PrintRecipt(String name, int days, Date dayIn, Room room){
         
         try{

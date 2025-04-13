@@ -1,0 +1,75 @@
+@startuml
+package HotelManagement {
+    package Rooms {
+        interface Room {
+            + int getNumber()
+            + void setNumber(int number)
+            + int getCapacity()
+            + void setCapacity(int capacity)
+            + double getRate()
+            + void setRate(double rate)
+            + boolean isOccupied()
+            + void setOccupied(boolean occupied)
+            + boolean setOccupancy(int customers)
+            + int getOccupants()
+            + String getType()
+            + String getFloor()
+            + String toString()
+        }
+
+        class Standard implements Room {
+            - int number
+            - int capacity
+            - double rate
+            - boolean occupied
+            - int occupants
+            + Standard(int number, int capacity, boolean occupied, double rate)
+            + Standard(int number)
+            + boolean setOccupancy(int customers)
+            + String toString()
+        }
+
+        class Suite implements Room {
+            - int number
+            - int capacity
+            - double rate
+            - boolean occupied
+            - boolean hasBalcony
+            - int occupants
+            + Suite(int number, int capacity, boolean occupied, boolean hasBalcony, double rate)
+            + Suite(int number)
+            + boolean setOccupancy(int customers)
+            + boolean hasBalcony()
+            + void setBalcony(boolean hasBalcony)
+            + String toString()
+        }
+
+        Room <|.. Standard
+        Room <|.. Suite
+    }
+
+    class HotelDriver {
+        + main(String[] Args)
+        + AdminInterface()
+        + EmployeeSystem()
+        + AddEmployeeLogic()
+        + RemoveEmployeeLogic()
+        + ModifyEmployeeLogic()
+        + ViewEmployeeLogic()
+        + ExportEmployeeSummaryLogic()
+        + RoomSystem()
+        + AddRoomLogic()
+        + RemoveRoomLogic()
+        + ModifyRoomLogic()
+        + ViewRoomsLogic()
+        + RoomSummaryLogic()
+        + CustomerInterface()
+        + RoomBookingLogic()
+        + BrowseRoomsLogic()
+    }
+
+    HotelDriver ..> Rooms.Room : uses
+    HotelDriver ..> Rooms.Standard : uses
+    HotelDriver ..> Rooms.Suite : uses
+}
+@enduml

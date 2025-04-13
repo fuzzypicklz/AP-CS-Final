@@ -5,6 +5,4 @@ public class Manager extends Employee {
     public Manager(int id, String f, String l) {
         super(id, f, l, "Manager");
     }
-    
-    
 }
