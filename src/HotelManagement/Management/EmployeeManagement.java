@@ -19,7 +19,8 @@ import java.io.IOException;
  * as well as export and import employee data.
  */
 public class EmployeeManagement {
-    public static ArrayList<Employee> employeeList = new ArrayList<Employee>();
+    public static ArrayList<Employee> employeeList = new ArrayList<>();
+
     /*
      * yet more debugging
      */
@@ -70,7 +71,7 @@ public class EmployeeManagement {
      * @param f The first name of the employee.
      * @param l The last name of the employee.
      */
-    public static void addIntern(String f, String l){
+    public static void addIntern(String f, String l) {
         Employee e = new Employee(employeeList.size(), f, l);
         addEmployee(e);
     }
@@ -84,7 +85,7 @@ public class EmployeeManagement {
      * @param l The last name of the employee.
      * @param p The position of the employee.
      */
-    public static void addEmployee(String f, String l, String p){
+    public static void addEmployee(String f, String l, String p) {
         p = p.toLowerCase();
         if (p.equalsIgnoreCase("housekeeping")){
             Housekeeping e = new Housekeeping(employeeList.size(), f, l);
@@ -108,7 +109,7 @@ public class EmployeeManagement {
      * Adds an Employee object to the employee list.
      * @param e The Employee object to add.
      */
-    public static void addEmployee(Employee e){
+    public static void addEmployee(Employee e) {
         employeeList.add(e);
     }
 
@@ -116,8 +117,7 @@ public class EmployeeManagement {
      * Removes an Employee object from the employee list.
      * @param e The Employee object to remove.
      */
-    public static void removeEmployee(Employee e){
-        
+    public static void removeEmployee(Employee e) {
         employeeList.remove(e);
     }
     /*
@@ -127,7 +127,7 @@ public class EmployeeManagement {
      * Retrieves a string representation of all employees in the system.
      * @return A formatted string containing all employees.
      */
-    public static String getEmployeesString(){
+    public static String getEmployeesString() {
         String s = "\n";
         for(int i = 0; i < employeeList.size(); i++){
             Employee employee = (Employee) employeeList.get(i);
@@ -143,7 +143,7 @@ public class EmployeeManagement {
      * @param id The ID of the employee.
      * @return The Employee object, or null if not found.
      */
-    public static Employee getEmployee(int id){
+    public static Employee getEmployee(int id) {
         for (int i = 0; i < employeeList.size(); i++){
             Employee employee = (Employee) employeeList.get(i);
             if (employee.getID() == id){
@@ -164,7 +164,7 @@ public class EmployeeManagement {
      * @param lName The last name of the employee.
      * @return The Employee object, or null if not found.
      */
-    public static Employee getEmployee(String fName, String lName){
+    public static Employee getEmployee(String fName, String lName) {
         for (int i = 0; i < employeeList.size(); i++){
             Employee employee = (Employee) employeeList.get(i);
             if (employee.getFname().equalsIgnoreCase(fName) && employee.getLname().equalsIgnoreCase(lName)){
@@ -184,7 +184,7 @@ public class EmployeeManagement {
      * Exports all employee data to a CSV file.
      * Does not include housekeeping room assignments.
      */
-    public static void employeesToCSV(){
+    public static void employeesToCSV() {
         String s = "ID,first name,last name,position,roomAssgn\n";  // CSV Header
         for(int i = 0; i < employeeList.size(); i++){
             if(employeeList.get(i).getPosition().equalsIgnoreCase("housekeeping")){ // If the Employee is part of the Housekeeping staff,
@@ -218,7 +218,7 @@ public class EmployeeManagement {
      * Imports employee data from a CSV file.
      * Appends data to the existing employee list.
      */
-    public static void employeesFromCSV(){
+    public static void employeesFromCSV() {
         try{
             File file = new File("data/employees.csv");
             Scanner input = new Scanner(file);
@@ -271,7 +271,7 @@ public class EmployeeManagement {
      * @param employee The Employee object to summarize.
      * @return A string representation of the employee.
      */
-    public static String employeeSummary(Employee employee){
+    public static String employeeSummary(Employee employee) {
         try{
             File file = new File("data/"+employee.getID()+employee.getFname()+employee.getLname()+".txt");
             java.io.PrintWriter output = new java.io.PrintWriter(file);
